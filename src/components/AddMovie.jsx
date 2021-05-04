@@ -39,7 +39,7 @@ class AddMovie extends React.Component {
     });
   }
 
-  createform(title, type, alternative, name) {
+  createform(title, alternative, name, value) {
     return (
       <div>
         <label
@@ -48,9 +48,9 @@ class AddMovie extends React.Component {
         >
           { name }
           <input
-            type={ type }
+            type="text"
             name={ title }
-            value={ this.state[title] }
+            value={ value }
             id={ `${alternative}-input` }
             data-testid={ `${alternative}-input` }
             onChange={ this.changeHandler }
@@ -59,13 +59,33 @@ class AddMovie extends React.Component {
       </div>);
   }
 
+  createRating(title, type, name, value) {
+    return (
+      <div>
+        <label
+          data-testid={ `${title}-input-label` }
+          htmlFor={ `${title}-input` }
+        >
+          { name }
+          <input
+            type={ type }
+            name={ title }
+            value={ value }
+            id={ `${title}-input` }
+            data-testid={ `${title}-input` }
+            onChange={ this.changeHandler }
+          />
+        </label>
+      </div>);
+  }
+
   render() {
-    const { storyline, genre } = this.state;
+    const { storyline, genre, title, subtitle, imagePath, rating } = this.state;
     return (
       <form data-testid="add-movie-form">
-        {this.createform('subtitle', 'text', 'subtitle', 'Subtítulo')}
-        {this.createform('title', 'text', 'title', 'Título')}
-        {this.createform('imagePath', 'text', 'image', 'Imagem')}
+        {this.createform('subtitle', 'subtitle', 'Subtítulo', subtitle)}
+        {this.createform('title', 'title', 'Título', title)}
+        {this.createform('imagePath', 'image', 'Imagem', imagePath)}
         <div>
           <label
             data-testid="storyline-input-label"
@@ -81,7 +101,7 @@ class AddMovie extends React.Component {
             />
           </label>
         </div>
-        {this.createform('rating', 'number', 'rating', 'Avaliação')}
+        {this.createRating('rating', 'number', 'Avaliação', rating)}
         <div>
           <label data-testid="genre-input-label" htmlFor="genre-input">
             Gênero
@@ -102,8 +122,8 @@ class AddMovie extends React.Component {
           type="button"
           data-testid="send-button"
           onClick={ (event) => this.addMovieEvent(event) }
-          >
-        Adicionar filme
+        >
+          Adicionar filme
         </button>
       </form>
     );
