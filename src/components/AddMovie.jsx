@@ -42,8 +42,10 @@ class AddMovie extends React.Component {
   createform(title, type, alternative, name) {
     return (
       <div>
-        <label data-testid={ `${ alternative }-input-label` }
-          htmlFor={ `${ alternative }-input` }>
+        <label
+          data-testid={ `${alternative}-input-label` }
+          htmlFor={ `${alternative}-input` }
+        >
           { name }
           <input
             type={ type }
@@ -65,8 +67,10 @@ class AddMovie extends React.Component {
         {this.createform('title', 'text', 'title', 'Título')}
         {this.createform('imagePath', 'text', 'image', 'Imagem')}
         <div>
-          <label data-testid="storyline-input-label"
-            htmlFor="storyline-input">
+          <label
+            data-testid="storyline-input-label"
+            htmlFor="storyline-input"
+          >
             Sinopse
             <textarea
               name="storyline"
@@ -74,7 +78,7 @@ class AddMovie extends React.Component {
               id="storyline-input"
               data-testid="storyline-input"
               onChange={ this.changeHandler }
-          />
+            />
           </label>
         </div>
         {this.createform('rating', 'number', 'rating', 'Avaliação')}
@@ -91,14 +95,14 @@ class AddMovie extends React.Component {
               <option value="action" data-testid="genre-option">Ação</option>
               <option value="comedy" data-testid="genre-option">Comédia</option>
               <option value="thriller" data-testid="genre-option">Suspense</option>
-          </select>
+            </select>
           </label>
         </div>
         <button
           type="button"
           data-testid="send-button"
           onClick={ (event) => this.addMovieEvent(event) }
-          >
+        >
         Adicionar filme
         </button>
       </form>
