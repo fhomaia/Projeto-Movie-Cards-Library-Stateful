@@ -1,95 +1,104 @@
 // implement AddMovie component here.
 import React from 'react';
 
-class AddMovie extends React.Component{
-  constructor(){
+class AddMovie extends React.Component {
+  constructor() {
     super();
-    this.changeHandler = this.changeHandler.bind(this)
-    this.addMovieEvent = this.addMovieEvent.bind(this)
+    this.changeHandler = this.changeHandler.bind(this);
+    this.addMovieEvent = this.addMovieEvent.bind(this);
     this.state = {
       subtitle: '',
       title: '',
       imagePath: '',
       storyline: '',
       rating: 0,
-      genre:'action',
-    }
-  };
+      genre: 'action',
+    };
+  }
 
-  changeHandler({target}){
-    const {name} = target;
+  changeHandler({ target }) {
+    const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({
       [name]: value,
-    })
-  };
+    });
+  }
 
   addMovieEvent(event) {
-    event.preventDefault()
-    this.props.onClick(this.state)
+    const { onClick } = this.props
+    event.preventDefault();
+    onClick(this.state);
     this.setState({
       subtitle: '',
       title: '',
       imagePath: '',
       storyline: '',
       rating: 0,
-      genre:'action',
-    })
-  };
+      genre: 'action',
+    });
+  }
 
-  createform (title, type , alternative) {
-    return <input 
-    type={ type }
-    name={ title }
-    value={ this.state[title] }
-    data-testid={ `${alternative}-input` }
-    onChange={ this.changeHandler }
-    />
+  createform(title, type, alternative) {
+    return (<input
+      type={ type }
+      name={ title }
+      value={ this.state[title] }
+      id={ `${alternative}-input` }
+      data-testid={ `${alternative}-input` }
+      onChange={ this.changeHandler }
+    />);
   }
 
   render() {
+    const { storyline, genre } = this.state
     return (
       <form data-testid="add-movie-form">
         <div>
-          <label data-testid="subtitle-input-label">Subtítulo</label>
+          <label data-testid="subtitle-input-label" htmlFor="subtitle-input">Subtítulo</label>
           {this.createform('subtitle', 'text', 'subtitle')}
         </div>
         <div>
-          <label data-testid="title-input-label">Título</label>
+          <label data-testid="title-input-label" htmlFor="title-input">Título</label>
           {this.createform('title', 'text', 'title')}
         </div>
         <div>
-          <label data-testid="image-input-label" >Imagem</label>
-          {this.createform('imagePath', 'text' ,'image')}
+          <label data-testid="image-input-label" htmlFor="image-input">Imagem</label>
+          {this.createform('imagePath', 'text', 'image')}
         </div>
         <div>
-          <label data-testid="storyline-input-label">Sinopse</label>
-          <textarea 
-          name="storyline"
-          value={ this.state['storyline'] }
-          data-testid={ `storyline-input` }
-          onChange={ this.changeHandler }
+          <label data-testid="storyline-input-label" htmlFor="storyline-input">Sinopse</label>
+          <textarea
+            name="storyline"
+            value={ storyline }
+            id="storyline-input"
+            data-testid="storyline-input"
+            onChange={ this.changeHandler }
           />
         </div>
         <div>
-          <label data-testid="rating-input-label">Avaliação</label>
+          <label data-testid="rating-input-label" htmlFor="rating-input">Avaliação</label>
           {this.createform('rating', 'number', 'rating')}
         </div>
         <div>
-          <label data-testid="genre-input-label">Gênero</label>
+          <label data-testid="genre-input-label" htmlFor="genre-input">Gênero</label>
           <select
-          data-testid="genre-input"
-          name='genre'
-          value={this.state.genre}
-          onChange={this.changeHandler}>
+            id="genre-input"
+            data-testid="genre-input"
+            name="genre"
+            value={ genre }
+            onChange={ this.changeHandler }
+            >
             <option value="action" data-testid="genre-option">Ação</option>
             <option value="comedy" data-testid="genre-option">Comédia</option>
             <option value="thriller" data-testid="genre-option">Suspense</option>
           </select>
         </div>
         <button
-        data-testid="send-button"
-        onClick={(event) => this.addMovieEvent(event) }>Adicionar filme</button>
+          data-testid="send-button"
+          onClick={ (event) => this.addMovieEvent(event) }
+        >
+        Adicionar filme
+        </button>
       </form>
     );
   };
