@@ -1,5 +1,6 @@
 // implement AddMovie component here.
 import React from 'react';
+import PropTypes from 'prop-types'
 
 class AddMovie extends React.Component {
   constructor() {
@@ -25,7 +26,7 @@ class AddMovie extends React.Component {
   }
 
   addMovieEvent(event) {
-    const { onClick } = this.props
+    const { onClick } = this.props;
     event.preventDefault();
     onClick(this.state);
     this.setState({
@@ -38,33 +39,29 @@ class AddMovie extends React.Component {
     });
   }
 
-  createform(title, type, alternative) {
-    return (<input
+  createform(title, type, alternative, name) {
+    return (
+    <div>
+    <label data-testid={`${alternative}-input-label`} htmlFor={ `${alternative}-input` }>{name}
+    <input
       type={ type }
       name={ title }
       value={ this.state[title] }
       id={ `${alternative}-input` }
       data-testid={ `${alternative}-input` }
       onChange={ this.changeHandler }
-    />);
+    />
+    </label>
+    </div>);
   }
 
   render() {
     const { storyline, genre } = this.state
     return (
       <form data-testid="add-movie-form">
-        <div>
-          <label data-testid="subtitle-input-label" htmlFor="subtitle-input">Subtítulo</label>
-          {this.createform('subtitle', 'text', 'subtitle')}
-        </div>
-        <div>
-          <label data-testid="title-input-label" htmlFor="title-input">Título</label>
-          {this.createform('title', 'text', 'title')}
-        </div>
-        <div>
-          <label data-testid="image-input-label" htmlFor="image-input">Imagem</label>
-          {this.createform('imagePath', 'text', 'image')}
-        </div>
+          {this.createform('subtitle', 'text', 'subtitle', 'Subtítulo' )}
+          {this.createform('title', 'text', 'title', 'Título')}
+          {this.createform('imagePath', 'text', 'image', 'Imagem')}
         <div>
           <label data-testid="storyline-input-label" htmlFor="storyline-input">Sinopse</label>
           <textarea
@@ -75,10 +72,7 @@ class AddMovie extends React.Component {
             onChange={ this.changeHandler }
           />
         </div>
-        <div>
-          <label data-testid="rating-input-label" htmlFor="rating-input">Avaliação</label>
-          {this.createform('rating', 'number', 'rating')}
-        </div>
+          {this.createform('rating', 'number', 'rating', 'Avaliação')}
         <div>
           <label data-testid="genre-input-label" htmlFor="genre-input">Gênero</label>
           <select
@@ -87,13 +81,14 @@ class AddMovie extends React.Component {
             name="genre"
             value={ genre }
             onChange={ this.changeHandler }
-            >
+          >
             <option value="action" data-testid="genre-option">Ação</option>
             <option value="comedy" data-testid="genre-option">Comédia</option>
             <option value="thriller" data-testid="genre-option">Suspense</option>
           </select>
         </div>
         <button
+          type="button"
           data-testid="send-button"
           onClick={ (event) => this.addMovieEvent(event) }
         >
@@ -101,6 +96,11 @@ class AddMovie extends React.Component {
         </button>
       </form>
     );
-  };
-};
+  }
+}
+
+AddMovie.propTypes = {
+  onClick: PropTypes.func
+}.isRequired
+
 export default AddMovie;
