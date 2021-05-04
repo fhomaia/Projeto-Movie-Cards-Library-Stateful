@@ -102,7 +102,7 @@ class AddMovie extends React.Component {
           type="button"
           data-testid="send-button"
           onClick={ (event) => this.addMovieEvent(event) }
-        >
+          >
         Adicionar filme
         </button>
       </form>
