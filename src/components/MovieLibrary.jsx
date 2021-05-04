@@ -55,7 +55,7 @@ class MovieLibrary extends React.Component {
       return this.moviesMarked(movies, bookmarkedOnly);
     }
     return this.moviesMarked(movies, bookmarkedOnly)
-    .filter((movie) => movie.genre === selectedGenre);
+      .filter((movie) => movie.genre === selectedGenre);
   }
 
   filteredMovies(movies, bookmarkedOnly, selectedGenre, searchText) {
@@ -85,8 +85,9 @@ class MovieLibrary extends React.Component {
           onSelectedGenreChange={ this.onSelectedGenreChange }
         />
         <MovieList
-          movies={ 
-            this.filteredMovies(movies, bookmarkedOnly, selectedGenre, searchText) }
+          movies={
+            this.filteredMovies(movies, bookmarkedOnly, selectedGenre, searchText)
+          }
         />
         <AddMovie onClick={ this.addNewMovie } />
       </div>
